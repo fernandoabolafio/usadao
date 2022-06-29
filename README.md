@@ -102,8 +102,8 @@ Prior to your first deployment, you'll need to do a few things:
 - Create two apps on Fly, one for staging and one for production:
 
   ```sh
-  fly create blues-stack-template
-  fly create blues-stack-template-staging
+  fly create usadao
+  fly create usadao-staging
   ```
 
 - Initialize Git.
@@ -123,14 +123,14 @@ Prior to your first deployment, you'll need to do a few things:
 - Add a `SESSION_SECRET` to your fly app secrets, to do this you can run the following commands:
 
   ```sh
-  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app blues-stack-template
-  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app blues-stack-template-staging
+  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app usadao
+  fly secrets set SESSION_SECRET=$(openssl rand -hex 32) --app usadao-staging
   ```
 
   > **Note:** When creating the staging secret, you may get a warning from the Fly CLI that looks like this:
   >
   > ```
-  > WARN app flag 'blues-stack-template-staging' does not match app name in config file 'blues-stack-template'
+  > WARN app flag 'usadao-staging' does not match app name in config file 'usadao'
   > ```
   >
   > This simply means that the current directory contains a config that references the production app we created in the first step. Ignore this warning and proceed to create the secret.
@@ -140,11 +140,11 @@ Prior to your first deployment, you'll need to do a few things:
 - Create a database for both your staging and production environments. Run the following:
 
   ```sh
-  fly postgres create --name blues-stack-template-db
-  fly postgres attach --postgres-app blues-stack-template-db --app blues-stack-template
+  fly postgres create --name usadao-db
+  fly postgres attach --postgres-app usadao-db --app usadao
 
-  fly postgres create --name blues-stack-template-staging-db
-  fly postgres attach --postgres-app blues-stack-template-staging-db --app blues-stack-template-staging
+  fly postgres create --name usadao-staging-db
+  fly postgres attach --postgres-app usadao-staging-db --app usadao-staging
   ```
 
   > **Note:** You'll get the same warning for the same reason when attaching the staging database that you did in the `fly set secret` step above. No worries. Proceed!
